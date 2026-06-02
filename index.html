@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Octave | Consultoria em Cibersegurança de Nuvem e Infraestrutura</title>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        :root {
+            --primary-bg: #000000;
+            --section-bg: rgba(15, 23, 42, 0.85);
+            --accent-color: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Language Switcher Styles */
+        .lang-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 20px;
+            padding: 5px;
+            display: flex;
+            gap: 5px;
+            backdrop-filter: blur(5px);
+        }
+
+        .lang-switcher button {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .lang-switcher button:hover {
+            color: var(--text-main);
+        }
+
+        .lang-switcher button.active {
+            background: var(--accent-color);
+            color: var(--primary-bg);
+        }
+
+        /* Language Toggle Logic */
+        [data-lang="en"] { display: none; }
+        
+        /* Ensure inline and list elements retain their correct display type when shown */
+        span[data-lang="pt"], a[data-lang="pt"] { display: inline; }
+        li[data-lang="pt"] { display: list-item; }
+
+        body.lang-en [data-lang="pt"] { display: none; }
+        body.lang-en [data-lang="en"] { display: block; }
+        body.lang-en span[data-lang="en"], body.lang-en a[data-lang="en"] { display: inline; }
+        body.lang-en li[data-lang="en"] { display: list-item; }
+
+        /* Particles Background Container */
+        #particles-js {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            background-color: var(--primary-bg);
+        }
+
+        /* Content Wrapper to sit above particles */
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+            border-bottom: 2px solid rgba(56, 189, 248, 0.3);
+            background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 100%);
+        }
+
+        .company-logo {
+            max-width: 180px;
+            height: auto;
+            margin: 0 auto 1rem auto;
+            display: block;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin-top: 0.5rem;
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            flex-grow: 1;
+        }
+
+        section {
+            background: var(--section-bg);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+
+        h2 {
+            color: var(--accent-color);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.75rem;
+            margin-top: 0;
+            font-size: 1.8rem;
+            font-weight: 400;
+        }
+
+        ul {
+            padding-left: 1.2rem;
+        }
+
+        li {
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+        
+        li strong {
+            color: var(--text-main);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+        }
+
+        .skills-grid div strong {
+            display: block;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+            font-size: 1.1rem;
+        }
+
+        .cert-item {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 1.2rem;
+            border-left: 4px solid var(--accent-color);
+            margin-bottom: 1rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: rgba(15, 23, 42, 0.95);
+            border-top: 2px solid rgba(56, 189, 248, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #7dd3fc;
+            text-decoration: underline;
+        }
+
+        /* QR Code Placeholder Style */
+        .qr-placeholder {
+            width: 150px;
+            margin: 1.5rem auto 0 auto;
+            display: block;
+            border: 2px dashed rgba(56, 189, 248, 0.6);
+            border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+
+    <div class="content-wrapper">
+        <div class="lang-switcher">
+            <button onclick="setLang('pt')" id="btn-pt" class="active">PT</button>
+            <button onclick="setLang('en')" id="btn-en">EN</button>
+        </div>
+
+        <header>
+            <img src="logo.jpeg" alt="Octave Logo" class="company-logo">
+            <h1>Octave</h1>
+            <p data-lang="pt">Consultoria em Segurança de Infraestrutura e Ambientes em Nuvem</p>
+            <p data-lang="en">Cloud Environments & Infrastructure Security Consultancy</p>
+        </header>
+
+        <div class="container">
+            <section id="about">
+                <h2 data-lang="pt">Sobre a Consultoria</h2>
+                <h2 data-lang="en">About the Principal Consultant</h2>
+                
+                <p data-lang="pt">A <strong>Octave</strong> é uma empresa dinâmica e orientada a detalhes com forte experiência em Nuvem e Cibersegurança. Somos especialistas em conceituar e entregar soluções de infraestrutura elegantes e fáceis de usar com velocidade e eficiência. Gostamos de construir soluções completas, aprender novas tecnologias e melhorar nosso conhecimento geral.</p>
+                <p data-lang="en"><strong>Octave</strong> is a dynamic and detail-oriented company with strong experience in Cloud and Cybersecurity. We specialize in conceptualizing and delivering elegant, user-friendly infrastructure solutions with speed and efficiency. We enjoy building complete solutions, learning new technologies, and improving overall knowledge.</p>
+            </section>
+
+            <section id="expertise">
+                <h2 data-lang="pt">Principais Especialidades Técnicas</h2>
+                <h2 data-lang="en">Core Technical Expertise</h2>
+                
+                <div class="skills-grid">
+                    <div>
+                        <strong data-lang="pt">Nuvem e Infraestrutura</strong>
+                        <strong data-lang="en">Cloud & Infrastructure</strong>
+                        <ul>
+                            <li>AWS & AWS CLI</li>
+                            <li>Docker & Kubernetes</li>
+                            <li>Azure & GCP</li>
+                            <li>Linux & BASH</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong data-lang="pt">Segurança e Identidade</strong>
+                        <strong data-lang="en">Security & Identity</strong>
+                        <ul>
+                            <li data-lang="pt">Cibersegurança e Gestão de Vulnerabilidades</li>
+                            <li data-lang="en">Cybersecurity & Vulnerability Management</li>
+                            <li>SSO (SAML, OpenID, LDAP)</li>
+                            <li>IAM & Active Directory</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong data-lang="pt">Dados e Engenharia</strong>
+                        <strong data-lang="en">Data & Engineering</strong>
+                        <ul>
+                            <li>Python & Boto3</li>
+                            <li>Amazon Lake Formation</li>
+                            <li data-lang="pt">Pipelines DevOps e CI/CD</li>
+                            <li data-lang="en">DevOps & CI/CD Pipelines</li>
+                            <li data-lang="pt">SQL e Engenharia de Dados</li>
+                            <li data-lang="en">SQL & Data Engineering</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects">
+                <h2 data-lang="pt">Projetos de Consultoria em Destaque</h2>
+                <h2 data-lang="en">Featured Consulting Projects</h2>
+                <ul>
+                    <li data-lang="pt"><strong>Gestão de IAM e SSO:</strong> Entrega de SSO para todas as aplicações internas através da integração do Office365 (AzureAD/EntraID) com o AWS Identity Center. Reutilização de tokens de segurança para Kubernetes, Keycloak, Jenkins e Elasticsearch, permitindo que o acesso à nuvem seja revogado em segundos.</li>
+                    <li data-lang="en"><strong>IAM & SSO Management:</strong> Delivered SSO for all internal applications by integrating Office365 (AzureAD/EntraID) with AWS Identity Center. Reused security tokens for Kubernetes, Keycloak, Jenkins, and Elasticsearch, allowing cloud access to be revoked in seconds.</li>
+                    
+                    <li data-lang="pt"><strong>Arquitetura Segura de Datalake:</strong> Migração de um data lake baseado em S3 para o Amazon Lake Formation para permitir o compartilhamento seguro B2B. Gerenciamento de permissões automatizado utilizando a API REST da AWS e Boto3.</li>
+                    <li data-lang="en"><strong>Secure Datalake Architecture:</strong> Migrated an S3-based data lake to Amazon Lake Formation to enable secure B2B sharing. Automated permission management utilizing the AWS REST API and Boto3.</li>
+                    
+                    <li data-lang="pt"><strong>Implementação de DevSecOps e SAST:</strong> Impulsionou e implementou SAST em todos os pipelines de produção para DotNet e Python usando Trivy. Relatórios automatizados fazendo upload de verificações para um bucket para visualização em dashboard do Kibana.</li>
+                    <li data-lang="en"><strong>DevSecOps & SAST Implementation:</strong> Pushed for and implemented SAST across all production pipelines for DotNet and Python using Trivy. Automated reports by uploading scans to a bucket for Kibana dashboard visualization.</li>
+                    
+                    <li data-lang="pt"><strong>Migração para AWS SSO:</strong> Migração de roles, políticas e logins para o AWS SSO usando o Azure AD como Provedor de Identidade. Desenvolvimento de uma função Lambda usando o Microsoft Graph para automatizar atribuições de usuários.</li>
+                    <li data-lang="en"><strong>AWS SSO Migration:</strong> Migrated roles, policies, and logins to AWS SSO using Azure AD as the Identity Provider. Developed a Lambda function using Microsoft Graph to automate user assignments.</li>
+                    
+                    <li data-lang="pt"><strong>Automação de Gestão de Vulnerabilidades:</strong> Pesquisa de ferramentas de ML e Análise de Dados para automatizar alertas baseados em vulnerabilidades conhecidas de infraestrutura. Implementação de relatórios automatizados via Nessus e Splunk.</li>
+                    <li data-lang="en"><strong>Vulnerability Management Automation:</strong> Researched ML and Data Analysis tools to automate alerting based on known infrastructure vulnerabilities. Implemented automated reporting via Nessus and Splunk.</li>
+                </ul>
+            </section>
+
+            <section id="certifications">
+                <h2 data-lang="pt">Certificações do Setor</h2>
+                <h2 data-lang="en">Industry Certifications</h2>
+                
+                <div class="cert-item">
+                    <strong>AWS Certified Solutions Architect</strong><br>
+                    <span style="color: var(--text-muted);">Amazon Web Services (AWS)</span>
+                </div>
+
+                <div class="cert-item">
+                    <strong>AWS Certified Security - Specialty</strong><br>
+                    <span style="color: var(--text-muted);">Amazon Web Services (AWS)</span>
+                </div>
+
+                <div class="cert-item">
+                    <strong>Certified Information Systems Security Professional (CISSP)</strong><br>
+                    <span style="color: var(--text-muted);">ISC2</span>
+                </div>
+
+                <div class="cert-item">
+                    <strong>CompTIA Security+ ce</strong><br>
+                    <span style="color: var(--text-muted);">CompTIA</span>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <h2 data-lang="pt">Entre em contato com a Octave</h2>
+            <h2 data-lang="en">Contact Octave</h2>
+            
+            <p data-lang="pt">LinkedIn: <a href="https://www.linkedin.com/company/octave-inf/" target="_blank">Octave no LinkedIn</a></p>
+            <p data-lang="en">LinkedIn: <a href="https://www.linkedin.com/company/octave-inf/" target="_blank">Octave on LinkedIn</a></p>
+            
+            <div style="margin-top: 2rem;">
+                <p data-lang="pt" style="margin-bottom: 0; color: var(--text-main);">Escaneie para contato no WhatsApp: <a href="https://wa.me/qr/MRYOTWB6UCI7G1" target="_blank">WhatsApp</a></p>
+                <p data-lang="en" style="margin-bottom: 0; color: var(--text-main);">Scan for WhatsApp contact: <a href="https://wa.me/qr/MRYOTWB6UCI7G1" target="_blank">WhatsApp</a></p>
+                <img src="whatsapp.png" alt="WhatsApp QR Code" class="qr-placeholder" title="WhatsApp QR">
+            </div>
+
+            <p data-lang="pt" style="color: var(--text-muted); margin-top: 2rem;">&copy; 2026 Octave Consultoria. Todos os direitos reservados.</p>
+            <p data-lang="en" style="color: var(--text-muted); margin-top: 2rem;">&copy; 2026 Octave Consulting. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Language Toggle Function
+        function setLang(lang) {
+            if (lang === 'en') {
+                document.body.classList.add('lang-en');
+                document.getElementById('btn-en').classList.add('active');
+                document.getElementById('btn-pt').classList.remove('active');
+                document.title = "Octave | Cloud & Infrastructure Cybersecurity Consulting";
+                document.documentElement.lang = "en";
+            } else {
+                document.body.classList.remove('lang-en');
+                document.getElementById('btn-pt').classList.add('active');
+                document.getElementById('btn-en').classList.remove('active');
+                document.title = "Octave | Consultoria em Cibersegurança de Nuvem e Infraestrutura";
+                document.documentElement.lang = "pt-BR";
+            }
+        }
+
+        // Initialize Particles.js
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 60,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#38bdf8"
+                },
+                "shape": {
+                    "type": "circle",
+                },
+                "opacity": {
+                    "value": 0.3,
+                    "random": false,
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#38bdf8",
+                    "opacity": 0.2,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 1.5,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 0.8
+                        }
+                    },
+                    "push": {
+                        "particles_nb": 3
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
+</html>
